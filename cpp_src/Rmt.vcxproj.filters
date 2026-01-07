@@ -447,9 +447,6 @@
     <None Include=".gitignore">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="..\build\build_rmt-daily.bat">
-      <Filter>Build Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="moduleformatdescription.txt" />
@@ -457,9 +454,6 @@
     <Text Include="todo eng.txt" />
     <Text Include="trackerdesign_x_uzsi.txt" />
     <Text Include="RMT CHANGES WIP.txt" />
-    <Text Include="..\build\build_rmt-daily-excluded-extensions.txt">
-      <Filter>Build Files</Filter>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\RMT\RMT Binaries\tracker.obx">

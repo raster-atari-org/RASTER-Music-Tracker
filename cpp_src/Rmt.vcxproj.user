@@ -7,5 +7,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerCommandArguments>/SCRIPT2:"C:\Users\JAC\Desktop\ASMA-Input\Test-Script.txt" C:\Users\JAC\Desktop\ASMA-Input\Test4.rmt</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArgumentsHistory>/SCRIPT2:"C:\Users\JAC\Desktop\ASMA-Input\Test-Script.txt" C:\Users\JAC\Desktop\ASMA-Input\Test4.rmt|</LocalDebuggerCommandArgumentsHistory>
   </PropertyGroup>
 </Project>
