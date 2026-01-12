@@ -3,3 +3,10 @@ Release
 _rmt129
 RmtAtariBackup
 doc
+.vs/
+enc_temp_folder/
+others/
+out/
+others/
+*.bak
+
