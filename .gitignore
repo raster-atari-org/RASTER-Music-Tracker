@@ -1,3 +1,5 @@
+cpp_src/.vs
+cpp_src/out
 cpp_src/Debug
 cpp_src/Release
 
