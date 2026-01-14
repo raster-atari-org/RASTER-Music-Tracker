@@ -22,7 +22,10 @@
 #include "Keyboard2NoteMapping.h"
 #include "ChannelControl.h"
 
+#include "Rmt.h"
 
+
+extern CRmtApp g_app;
 extern CSong g_Song;
 extern CTuning g_Tuning;
 extern CTracksControl g_TracksControl;
@@ -117,9 +120,8 @@ void CSong::SetRMTTitle()
                 s = "Noname *";
             }
             else
-            {	// RMT version number and build date 
-                s1.LoadString(IDS_RMTVERSION);
-                s.Format("%s (%s %s)", s1, __DATE__, __TIME__);
+            {	
+                s = g_app.GetVersionAndBuild();
             }
         }
         else

@@ -14,6 +14,7 @@
 #include "GuiHelpers.h" // For SendErrorMessage
 #include "RmtCommandLineInfo.h"
 #include "Global.h"
+#include "Shell.h"
 
 #include "RmtTest.h"
 
@@ -39,16 +40,15 @@ extern CSong g_Song;
 // CRmtApp
 
 BEGIN_MESSAGE_MAP(CRmtApp, CWinApp)
-    //{{AFX_MSG_MAP(CRmtApp)
-    ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
-    // NOTE - the ClassWizard will add and remove mapping macros here.
-    //    DO NOT EDIT what you see in these blocks of generated code!
-//}}AFX_MSG_MAP
-// Standard file based document commands
-ON_COMMAND(ID_FILE_NEW, CWinApp::OnFileNew)
-ON_COMMAND(ID_FILE_OPEN, CWinApp::OnFileOpen)
-// Standard print setup command
-ON_COMMAND(ID_FILE_PRINT_SETUP, CWinApp::OnFilePrintSetup)
+
+    // Standard file based document commands
+    ON_COMMAND(ID_FILE_NEW, CWinApp::OnFileNew)
+    ON_COMMAND(ID_FILE_OPEN, CWinApp::OnFileOpen)
+    // Standard print setup command
+    ON_COMMAND(ID_FILE_PRINT_SETUP, CWinApp::OnFilePrintSetup)
+    ON_COMMAND(ID_HELP_HELP_TOPICS, &CRmtApp::OnHelpHelpTopics)
+    ON_COMMAND(ID_HELP_ONLINE_HELP, &CRmtApp::OnHelpOnlineHelp)
+    ON_COMMAND(ID_HELP_ABOUT_APP, &CRmtApp::OnHelpAboutApp)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -63,7 +63,7 @@ CRmtApp::CRmtApp() :CWinApp("RMT")
 // This declaration ensures that there is excatly one app instance.
 // This should be the only static variable in the solution.
 
-static CRmtApp g_app;
+CRmtApp g_app;
 
 /////////////////////////////////////////////////////////////////////////////
 // CRmtApp initialization
@@ -73,7 +73,7 @@ BOOL CRmtApp::InitInstance()
     // Set the registry key under which our settings are stored.
     // This is a standard AFX feafture.
     // The subtree has this structure:
-    // - RMT (all name specifed in the constructor)
+    // - RMT (the app name specifed in the constructor)
     // - RMT/Frame: Main window position and size.
     // - RMT/Recent File List: MRU list of files.
     // - RMT/Settings: Not used.
@@ -178,12 +178,37 @@ BOOL CRmtApp::InitInstance()
     return TRUE;
 }
 
-// App command to run the dialog
-void CRmtApp::OnAppAbout()
-{
-    CAboutDialog::Show(g_about6502, g_Pokey.GetPokey()->GetAbout());
+CString CRmtApp::GetVersionAndBuild() const {
+    CString version;
+    CString result;
+
+    version.LoadString(IDS_RMTVERSION);
+
+    result.Format("%s (%s %s)", version, __DATE__, __TIME__);
+    return result;
+}
+
+void CRmtApp::OpenOnlineHelp() const {
+    CShell::OpenFile("https://html-preview.github.io/?url=https://github.com/raster-atari-org/RASTER-Music-Tracker/blob/1.35/doc//rmt_en.html");
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // CRmtApp message handlers
 
+
+
+void CRmtApp::OnHelpHelpTopics()
+{
+    CShell::OpenFile(GetResourceFilePath(std::filesystem::path("docs"), "rmt_en.html"));
+}
+
+void CRmtApp::OnHelpOnlineHelp()
+{
+
+    OpenOnlineHelp();
+}
+
+void CRmtApp::OnHelpAboutApp()
+{
+    CAboutDialog::Show(g_about6502, g_Pokey.GetPokey()->GetAbout());
+}

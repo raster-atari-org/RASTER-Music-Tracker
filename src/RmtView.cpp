@@ -28,6 +28,8 @@
 #include "Undo.h"
 #include "Song.h"
 #include "Tuning.h"
+#include "Rmt.h"
+
 
 
 // Activate MFC memory leak detection.
@@ -37,6 +39,7 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+extern CRmtApp	g_app; 
 extern CSong	g_Song;
 extern CRmtMidi	g_Midi;
 extern CUndo	g_Undo;
@@ -229,7 +232,7 @@ BEGIN_MESSAGE_MAP(CRmtView, CView)
     ON_UPDATE_COMMAND_UI(ID_VIEW_STATUS_BAR, OnUpdateViewStatusBar)
     ON_COMMAND(ID_SONG_SONGCHANGEMAXIMALLENGTHOFTRACKS, OnSongSongchangemaximallengthoftracks)
     //}}AFX_MSG_MAP
-    ON_COMMAND(ID_WANTEXIT, OnWantExit)
+    ON_COMMAND(ID_FILE_EXIT, OnWantExit)
     // Standard printing commands
     ON_COMMAND(ID_FILE_PRINT, CView::OnFilePrint)
     ON_COMMAND(ID_FILE_PRINT_DIRECT, CView::OnFilePrint)
@@ -760,8 +763,7 @@ void CRmtView::OnViewConfiguration()
 
         if (g_nohwsoundbuffer != dlg.m_nohwsoundbuffer)
         {
-            g_Pokey.ReInitSound(g_Song.IsNTSC(), g_Song.IsStereo());	//the sound needs to be reinitialized
-            g_Atari.Init(g_Song.IsNTSC()); //reset RMT routines
+            g_Song.ReInitSound();   // Justified for testing, but this might be a little redundant
         }
         g_nohwsoundbuffer = dlg.m_nohwsoundbuffer;
 
@@ -1565,6 +1567,10 @@ void CRmtView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
         break;
 
     case VK_F1:
+        if (g_shiftkey) {
+            g_app.OpenOnlineHelp();
+            return;
+        }
         if (g_controlkey) goto AllModesDefaultKey;	//would conflict with transposition hotkeys otherwise
         g_Undo.Separator();
         OnEmTracks();
@@ -2953,7 +2959,7 @@ void CRmtView::OnUpdateUndoClearundoredo(CCmdUI* pCmdUI)
     pCmdUI->Enable(g_Song.UndoGetUndoSteps() || g_Song.UndoGetRedoSteps());
 }
 
-void CRmtView::OnWantExit() // Called from the menu File/Exit ID_WANTEXIT instead of the original ID_APP_EXIT
+void CRmtView::OnWantExit() // Called from the menu File/Exit ID_FILE_EXIT instead of the original ID_APP_EXIT
 {
     if (g_Song.WarnUnsavedChanges())
     {

@@ -160,7 +160,7 @@ bool CPokey::IsSoundDriverLoaded() const {
 }
 
 
-void  CPokey::InitPokeys(const bool ntsc, const bool stereo, const DWORD samplesPerSec) {
+void CPokey::InitPokeys(const bool ntsc, const bool stereo, const DWORD samplesPerSec) {
 
     if (!m_initialized || m_ntsc != ntsc || m_stereo != stereo || m_samplesPerSec!= samplesPerSec) {
         switch (GetSoundDriver())

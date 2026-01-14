@@ -418,8 +418,7 @@ void CSong::FileNew()
     // Apply the settings and reset the song data
     g_Tracks.SetMaxTrackLength(dlg.m_maxTrackLength);
 
-    g_tracks4_8 = (dlg.m_comboMonoOrStereo == 0) ? 4 : 8;
-    ClearSong(g_tracks4_8);
+    ClearSong((dlg.m_comboMonoOrStereo == 0) ? 4 : 8);
     SetRMTTitle();
 
     // Automatically create 1 songline of empty patterns
@@ -1070,7 +1069,7 @@ bool CSong::LoadTxt(std::ifstream& in)
                         v = 4;
                     else
                         v = 8;
-                    g_tracks4_8 = v;
+                    SetTracks(v);
                 }
                 else
                     if (strcmp(line, "NAME:") == 0)

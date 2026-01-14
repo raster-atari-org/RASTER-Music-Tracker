@@ -12,7 +12,6 @@
 #include "Global.h"
 
 extern CInstruments	g_Instruments;
-extern int g_tracks4_8; // TODO Move out
 
 
 struct TSourceTrack
@@ -857,9 +856,9 @@ int CSong::ImportTMC(std::ifstream& in)
     }
     //is there a goto in the end?
     if (m_songgo[line - 1] < 0) m_songgo[line + 1] = line;	//no, so it adds an endless loop to the end
-    //if (m_songgo[line-1]<0) m_songgo[line]=0; //no, so add a goto to the first line
 
-    if (!stereomodul) g_tracks4_8 = 4;	//mono module
+    if (!stereomodul) //mono module
+        SetTracks(4);
 
     //FINAL DIALOGUE AFTER IMPORT
     CImportTmcFinishedDlg imfdlg;
@@ -887,8 +886,7 @@ int CSong::ImportTMC(std::ifstream& in)
     if (imfdlg.DoModal() != IDOK)
     {
         //did not give Ok, so it deletes
-        g_tracks4_8 = originalg_tracks4_8;	//returns the original value
-        ClearSong(g_tracks4_8);
+        ClearSong(originalg_tracks4_8); //returns the original value
         MessageBox(g_hwnd, "Module import aborted.", "Import...", MB_ICONINFORMATION);
     }
 
@@ -1084,7 +1082,7 @@ int CSong::ImportMOD(std::ifstream& in)
     BOOL x_truncateunusedparts = importdlg.m_check7;
     BOOL x_fourier = importdlg.m_check8;
 
-    g_tracks4_8 = rmttype;	//produce RMT4 or RMT8
+    SetTracks(rmttype); //produce RMT4 or RMT8
 
     //song name
     for (j = 0; j < 20 && (a = mem[j]); j++) m_songname[j] = a;
@@ -1863,8 +1861,7 @@ int CSong::ImportMOD(std::ifstream& in)
     if (imfdlg.DoModal() != IDOK)
     {
         //did not give Ok, so it deletes
-        g_tracks4_8 = originalg_tracks4_8;	//returns the original value
-        ClearSong(g_tracks4_8);
+        ClearSong(originalg_tracks4_8); //returns the original value
         MessageBox(g_hwnd, "Module import aborted.", "Import...", MB_ICONINFORMATION);
     }
 

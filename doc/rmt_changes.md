@@ -23,6 +23,11 @@ Changes in RMT 1.35 (Planned)
 - Include the instruments and samples in the download again.
 - Remove the parts of the "RMF" file format that Raster started but never completed.
 - Have an additional ".ini" file as an intermediate step to the RMT file format version 2. There, the module-specific settings from the "RMT.ini" and "Tuning.ini" could be preserved. Also, the file's existence indicates it is an RMT in 1.34 format.
+- Map the official Windows standard key combinations to the correct Windows standard function. Find alterative for their current binding.
+  - Help Topics (n/a) => Help Topics (F1)
+  - New (Ctrl-W) => New (Ctrl-N)
+  - Load (Ctrl-L) => Open (Ctrl-O)
+  - Print =>Print (Ctrl-P)
 
 Technical:
 - Extract the binaries for the tracker drivers from the source code and have them as resources in the file system. This way, it is easier to inspect and update their content.

@@ -15,6 +15,7 @@ public:
     enum { IDD = IDD_ABOUTBOX };
     CString	m_rmtversion;
     CString	m_rmtauthor;
+    CString	m_rmtrepository;
     CString	m_credits;
     CString	m_about6502;
     CString	m_aboutpokey;
@@ -35,5 +36,7 @@ protected:
         // No message handlers
     //}}AFX_MSG
     DECLARE_MESSAGE_MAP()
+public:
+    afx_msg void OnStnClickedRmtRepository();
 };
 

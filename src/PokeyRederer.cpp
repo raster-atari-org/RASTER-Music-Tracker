@@ -131,6 +131,7 @@ BOOL CXPokey::InitSoundInternal(const bool ntsc, const bool stereo, const WORD c
 
     // Initialise the POKEY emulation plugin once the sound interface is ready
     m_pokey.InitSound();
+    m_pokey.InitPokeys(ntsc, stereo, samplesPerSec);
 
     return 1;
 }
@@ -351,9 +352,6 @@ void CXPokey::RenderSoundV2(int instrspeed, BYTE* buffer, int& length)
 /// </summary>
 void CXPokey::CopyAtariMemoryToPokey()
 {
-
-    m_pokey.InitPokeys(ntsc, stereo, GetSoundFormat()->nSamplesPerSec);
-
     // Write bytes 0-7. Write 0x00 if the channel is inactive.
     for (int i = 0; i <= 8; i++)	//
     {

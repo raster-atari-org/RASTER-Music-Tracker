@@ -38,13 +38,20 @@ public:
     virtual BOOL InitInstance();
     //}}AFX_VIRTUAL
 
+    CString GetVersionAndBuild() const;
+    void OpenOnlineHelp() const;
+
+
 // Implementation
     //{{AFX_MSG(CRmtApp)
-    afx_msg void OnAppAbout();
+
     // NOTE - the ClassWizard will add and remove member functions here.
     //    DO NOT EDIT what you see in these blocks of generated code !
 //}}AFX_MSG
     DECLARE_MESSAGE_MAP()
+    afx_msg void OnHelpHelpTopics();
+    afx_msg void OnHelpOnlineHelp();
+    afx_msg void OnHelpAboutApp();
 };
 
 

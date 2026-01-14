@@ -751,14 +751,14 @@ END
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 343, 152
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "About Rmt"
+CAPTION "About RASTER Music Tracker"
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,286,131,50,14,WS_GROUP
     ICON            IDR_MAINFRAME,IDC_STATIC,7,7,20,20
-    LTEXT           "Sample RMT version",IDC_RMTVERSION,47,7,185,8,SS_NOPREFIX
-    LTEXT           "Sample RMT author",IDC_RMTAUTHOR,47,18,289,8
-    LTEXT           "https://github.com/raster-atari-org/RASTER-Music-Tracker",IDC_STATIC,47,29,282,10
+    LTEXT           "Sample RMT version",IDC_RMT_VERSION,47,7,280,8,SS_NOPREFIX
+    LTEXT           "Sample RMT author",IDC_RMT_AUTHOR,47,18,289,8,SS_NOPREFIX
+    LTEXT           "Sample RMT Repository",IDC_RMT_REPOSITORY,47,29,282,10,SS_NOPREFIX
     LTEXT           "External Pokey sound emulation provided by:",IDC_STATIC,7,41,329,8
     EDITTEXT        IDC_ABOUTPOKEY,7,50,329,32,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY
     LTEXT           "External Atari 6502 processor emulation provided by:",IDC_STATIC,7,87,329,8
@@ -1163,8 +1163,8 @@ BEGIN
     END
     POPUP "&Edit"
     BEGIN
-        MENUITEM "&Undo",                       ID_UNDO_UNDO
-        MENUITEM "&Redo",                       ID_UNDO_REDO
+        MENUITEM "&Undo\tCtrl+Z",               ID_UNDO_UNDO
+        MENUITEM "&Redo\tCtrl+Y",               ID_UNDO_REDO
         MENUITEM SEPARATOR
         MENUITEM "&Clear Undo && Redo history", ID_UNDO_CLEARUNDOREDO
     END
@@ -1279,7 +1279,9 @@ BEGIN
     END
     POPUP "&Help"
     BEGIN
-        MENUITEM "&About Rmt...",               ID_APP_ABOUT
+        MENUITEM "&Help Topics",                ID_HELP_HELP_TOPICS
+        MENUITEM "&Online Help\tShift+F1",      ID_HELP_ONLINE_HELP
+        MENUITEM "&About RASTER Music Tracker", ID_HELP_ABOUT_APP
     END
 END
 
@@ -1330,6 +1332,7 @@ END
 STRINGTABLE
 BEGIN
     IDR_MAINFRAME           "RMT\n\nRmt\n\n\nRmt.Document\nRmt Document"
+    IDS_RMT_REPOSITORY      "https://github.com/raster-atari-org/RASTER-Music-Tracker"
 END
 
 STRINGTABLE
@@ -1364,12 +1367,6 @@ END
 STRINGTABLE
 BEGIN
     ID_FILE_EXPORT_AS       "Export song to file\nExport"
-END
-
-STRINGTABLE
-BEGIN
-    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
-    ID_APP_EXIT             "Quit the application\nExit"
 END
 
 STRINGTABLE
@@ -1444,8 +1441,8 @@ END
 STRINGTABLE
 BEGIN
     AFX_IDS_PREVIEW_CLOSE   "Close print preview mode\nCancel Preview"
-    IDS_RMTVERSION          "RASTER Music Tracker 1.35"
-    IDS_RMTAUTHOR           "by Radek Sterba, (c) Raster/C.P.U. (2002-2009), VinsCool (2021-2024), JAC! (2024-2026)"
+    IDS_RMT_VERSION         "RASTER Music Tracker 1.35"
+    IDS_RMT_AUTHOR          "by Radek Sterba, (c) Raster/C.P.U. (2002-2009), VinsCool (2021-2024), JAC! (2024-2026)"
 END
 
 STRINGTABLE
@@ -1499,8 +1496,9 @@ END
 
 STRINGTABLE
 BEGIN
-    ID_WANTEXIT             "Exit RMT"
-    ID_VIEW_TUNING          "Display the tuning menu"
+    ID_VIEW_TUNING          "Display the tuning menu."
+    ID_HELP_HELP_TOPICS     "Open the local help in a browser."
+    ID_HELP_ABOUT_APP       "Display information about the app and its version in a pop-up dialog"
 END
 
 STRINGTABLE
@@ -1512,6 +1510,12 @@ BEGIN
     ID_BLOCK_PLAY           "Play selected block\nPlay block"
     ID_BLOCK_INSTRALL       "Block modification mode\nBlock mode"
     ID_BLOCK_BACKUP         "Restore block from backup\nRestore block"
+END
+
+STRINGTABLE
+BEGIN
+    ID_HELP_ONLINE_HELP     "Open the online help in a browser window"
+    ID_HELP_ABOUT           "Display program information, version number and copyright"
 END
 
 #endif    // English (United States) resources

@@ -69,6 +69,13 @@ bool CSong::IsStereo() const {
     return (GetTracks() > 4);
 }
 
+void CSong::SetTracks(const int tracksNum) {
+    if (tracksNum != g_tracks4_8) {
+        g_tracks4_8 = tracksNum;
+        ReInitSound();
+    }
+}
+
 BOOL CSong::IsNTSC() const {
     return m_ntsc;
 }
@@ -76,9 +83,15 @@ BOOL CSong::IsNTSC() const {
 void CSong::SetNTSC(const BOOL ntsc) {
     if (ntsc != m_ntsc) {
         m_ntsc = ntsc;
-        g_AtariTrackerDriver->GetAtari()->Init(ntsc);
-        g_AtariTrackerDriver->Init();
+        ReInitSound();
     }
+}
+
+// Force a systematic Sound Reset to correctly handle Stereo and/or NTSC switch
+void CSong::ReInitSound() {
+    g_Pokey.ReInitSound(IsNTSC(), IsStereo());
+    g_AtariTrackerDriver->GetAtari()->Init(IsNTSC());
+    g_AtariTrackerDriver->Init();
 }
 
 
@@ -114,7 +127,8 @@ void CSong::ClearSong(int numOfTracks)
 {
     Stop();
 
-    g_tracks4_8 = numOfTracks;			// Track for 4/8 channels
+    //g_tracks4_8 = numOfTracks;			// Track for 4/8 channels
+    SetTracks(numOfTracks);
     g_rmtroutine = TRUE;				// RMT routine execution enabled
     g_prove = 0;
     g_respectvolume = 0;
@@ -798,7 +812,7 @@ int CSong::DecodeModule(unsigned char* mem, int fromAddr, int endAddr, BYTE* ins
     // 4th byte: # of channels (4 or 8)
     data = mem[addr + 3];
     if (data != '4' && data != '8') return 0;	//it is not RMT4 or RMT8
-    g_tracks4_8 = data & 0x0f;					// Store how many channels this module uses
+    SetTracks(data & 0x0F); // Store how many channels this module uses
 
     // 5th byte: track length
     data = mem[addr + 4];
@@ -2475,7 +2489,7 @@ void CSong::Songswitch4_8(int tracks4_8)
     if (tracks4_8 == 4)
     {
         if (m_trackactivecol >= 4) { m_trackactivecol = 3; m_trackactivecur = 0; }
-        g_tracks4_8 = 4;
+        SetTracks(4);
         for (i = 0; i < SONGLEN; i++)
         {
             for (j = 4; j < 8; j++) m_song[i][j] = -1;
@@ -2485,7 +2499,7 @@ void CSong::Songswitch4_8(int tracks4_8)
     {
         if (tracks4_8 == 8)
         {
-            g_tracks4_8 = 8;
+            SetTracks(8);
         }
     }
 

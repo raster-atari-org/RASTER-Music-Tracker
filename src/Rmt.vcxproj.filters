@@ -294,6 +294,9 @@
     <ClCompile Include="AssemblerTypes.cpp">
       <Filter>Source Files\IO - Load/Save/Export/Import/Midi\ASM</Filter>
     </ClCompile>
+    <ClCompile Include="Shell.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConfigDlg.h">
@@ -514,6 +517,9 @@
     </ClInclude>
     <ClInclude Include="AssemblerTypes.h">
       <Filter>Source Files\IO - Load/Save/Export/Import/Midi\ASM</Filter>
+    </ClInclude>
+    <ClInclude Include="Shell.h">
+      <Filter>Source Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

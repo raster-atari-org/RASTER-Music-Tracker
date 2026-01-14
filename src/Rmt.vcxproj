@@ -263,6 +263,7 @@
     <ClCompile Include="IO_Instruments.cpp" />
     <ClCompile Include="IO_Song.cpp" />
     <ClCompile Include="IO_Song_ExportAsm.cpp" />
+    <ClCompile Include="Shell.cpp" />
     <ClCompile Include="SongContainer.cpp" />
     <ClCompile Include="SongExport.cpp" />
     <ClCompile Include="SongExporterTest.cpp" />
@@ -389,6 +390,7 @@
     <ClInclude Include="lzssp.h" />
     <ClInclude Include="lzss_sap.h" />
     <ClInclude Include="PokeyStream.h" />
+    <ClInclude Include="Shell.h" />
     <ClInclude Include="Song.h" />
     <ClInclude Include="SongContainer.h" />
     <ClInclude Include="SongExport.h" />
